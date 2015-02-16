@@ -25,7 +25,7 @@ class MameSimulation extends Simulation {
   val uri1 = "http://106.186.29.62/mameclub"
 
   val scn = scenario("RecordedSimulation")
-    .repeat(100) {
+    .repeat(10) {
     exec(http("request_0")
       .get("/mameclub/voters")
       .headers(headers_0))
