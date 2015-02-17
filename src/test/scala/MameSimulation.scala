@@ -10,7 +10,7 @@ class MameSimulation extends Simulation {
 
   val httpProtocol = http
     .baseURL("http://106.186.29.62")
-    .inferHtmlResources()
+//    .inferHtmlResources()
     .acceptHeader("application/json, text/plain, */*")
     .acceptEncodingHeader("gzip, deflate")
     .acceptLanguageHeader("ja,en-us;q=0.7,en;q=0.3")
@@ -25,7 +25,7 @@ class MameSimulation extends Simulation {
   val uri1 = "http://106.186.29.62/mameclub"
 
   val scn = scenario("RecordedSimulation")
-    .repeat(1) {
+    .repeat(10) { // 以下のテストを10回繰り返す
     exec(http("request_0")
       .get("/mameclub/voters")
       .headers(headers_0))
@@ -53,6 +53,7 @@ class MameSimulation extends Simulation {
           .body(RawFileBody("RecordedSimulation_0004_request.txt"))))
   }
 
-  setUp(scn.inject(atOnceUsers(100))).protocols(httpProtocol)
+  // atOnceUsersが同時接続ユーザー数
+  setUp(scn.inject(atOnceUsers(300))).protocols(httpProtocol)
 
 }
